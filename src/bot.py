@@ -5,20 +5,21 @@ from aiogram import Bot, types
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.dispatcher import FSMContext, Dispatcher
 
-# from config import token
-from auth import Auth
+from modules.auth import Auth
+from modules.config import token
 import logging
 import os
 
-TOKEN = os.getenv('TOKEN')
-# TOKEN = token
+
+TOKEN = token
+# TOKEN = os.getenv('TOKEN')
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot, storage=MemoryStorage())
 au = Auth()
 
 # webhook settings
 WEBHOOK_PATH = ""
-WEBHOOK_URL = "https://epicentr-tg.vercel.app/"
+WEBHOOK_URL = os.getenv('WEBHOOK_URL')
 
 # webserver settings
 WEBAPP_HOST = 'localhost'  # or ip
@@ -85,11 +86,6 @@ async def get_phone(m: types.Message, state: FSMContext):
 
     au.create_document(info)
     await state.finish()
-
-
-@dp.message_handler(commands=['test'])
-async def test_command(m: types.Message):
-    await m.answer('Successfully')
 
 
 if __name__ == '__main__':
