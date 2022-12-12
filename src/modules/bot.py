@@ -17,7 +17,7 @@ au = Auth()
 
 # webhook settings
 WEBHOOK_PATH = ""
-WEBHOOK_URL = "https://89ca-37-113-78-71.eu.ngrok.io"
+WEBHOOK_URL = "https://epicentr-tg.vercel.app/"
 
 # webserver settings
 WEBAPP_HOST = 'localhost'  # or ip
