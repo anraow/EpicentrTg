@@ -6,24 +6,14 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.dispatcher import FSMContext, Dispatcher
 
 from modules.auth import Auth
-from modules.config import token
+from modules.config import *
 import logging
 import os
 
 
-TOKEN = token
-# TOKEN = os.getenv('TOKEN')
-bot = Bot(token=TOKEN)
+bot = Bot(token=token)
 dp = Dispatcher(bot, storage=MemoryStorage())
 au = Auth()
-
-# webhook settings
-WEBHOOK_PATH = ""
-WEBHOOK_URL = os.getenv('WEBHOOK_URL')
-
-# webserver settings
-WEBAPP_HOST = 'localhost'  # or ip
-WEBAPP_PORT = 8000
 
 logging.basicConfig(level=logging.INFO)
 
@@ -31,6 +21,8 @@ logging.basicConfig(level=logging.INFO)
 async def on_startup(dp):
     await bot.set_webhook(WEBHOOK_URL)
     # insert code here to run it after start
+    async with aiohttp.ClientSession() as session:
+        await session.get(f"https://api.telegram.org/bot{token}/setWebhook?url={WEBHOOK_URL}")
 
 
 async def on_shutdown(dp):
