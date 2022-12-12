@@ -5,12 +5,13 @@ from aiogram import Bot, types
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.dispatcher import FSMContext, Dispatcher
 
-from config import token
+# from config import token
 from auth import Auth
 import logging
+import os
 
-
-TOKEN = token
+TOKEN = os.getenv('TOKEN')
+# TOKEN = token
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot, storage=MemoryStorage())
 au = Auth()
